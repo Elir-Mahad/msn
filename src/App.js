@@ -6,6 +6,7 @@ import "./App.css";
 import { Button } from "@material-ui/core";
 import { FormControl, InputLabel, Input } from "@material-ui/core";
 import { db } from "./firebase.js";
+import firebase from "firebase"; // pulling from the module not the file
 
 function App() {
 	//
@@ -76,6 +77,12 @@ function App() {
 		// By default, the input field gets refreshed every time something is submitted
 		// This line of code stops the input field from refereshing.
 		// As a result, the previous messages that were inputed, will not be erased.
+
+		db.collection("messages").add({
+			message: input,
+			username: username,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp()
+		});
 
 		// all the logic to send messages
 		setMessages([
