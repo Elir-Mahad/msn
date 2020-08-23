@@ -85,16 +85,6 @@ function App() {
 		});
 
 		// all the logic to send messages
-		setMessages([
-			...messages,
-			// store all the previous inputs in the messages array
-			{
-				username: username,
-				// add new usernames to the end of the messages array
-				message: input
-				// add new inputs to the end of the messages array
-			}
-		]);
 		setInput("");
 		// after send message is clicked,
 		// clear the messages from the input,
