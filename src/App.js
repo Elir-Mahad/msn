@@ -16,17 +16,7 @@ function App() {
 
 	const [input, setInput] = useState("");
 	const [username, setUsername] = useState("");
-	const [messages, setMessages] = useState([
-		// hard coded messages
-		// {
-		// 	username: "sam",
-		// 	message: "hello world"
-		// },
-		// {
-		// 	username: "sandy",
-		// 	message: "hello underworld"
-		// }
-	]);
+	const [messages, setMessages] = useState([]);
 
 	//! UseEffect
 
