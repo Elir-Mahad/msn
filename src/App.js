@@ -119,9 +119,9 @@ function App() {
 			{messages.map((message) => (
 				// loop through the messages array and
 				<Message
-					username={message.username}
+					username={username}
 					// display the username
-					text={message.text}
+					message={message}
 					// display the text
 					// Take the text, and pass it through (or merge it with)
 					// the 'Message; component that's in the Message.js file
