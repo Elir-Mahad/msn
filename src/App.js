@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@material-ui/core";
 import { FormControl, InputLabel, Input } from "@material-ui/core";
 import Message from "./Message.js";
@@ -6,12 +6,44 @@ import Message from "./Message.js";
 import "./App.css";
 
 function App() {
-	//! USESTATE
+	//
+	//! UseState
 	// state allows you to make a change on the page without refreshing the whole page
 	// via the react dom
 
 	const [input, setInput] = useState("");
-	const [messages, setMessages] = useState([]);
+	const [username, setUsername] = useState("");
+	const [messages, setMessages] = useState([
+		// hard coded messages
+		{
+			username: "sam",
+			text: "hello world"
+		},
+		{
+			username: "sandy",
+			text: "hello underworld"
+		}
+	]);
+
+	//! UseEffect
+
+	useEffect(() => {
+		//
+		setUsername(prompt("Please enter your name"));
+		// pop up to prompt to enter your name
+		// the name that you enter will be stored in the variable username
+		// this line is similar to --> const username = prompt ('Please enter your name')
+		// the variable username stores a prompt and users answer to the prompt
+
+		return () => {
+			// cleanup;
+		};
+		// if we pass input as a dependancy
+		// then every single time the input changes,
+		// the code in the useEffect will run.
+		// if we don't pass any dependcies,
+		// then the code will in the useEffect will only run once
+	}, []);
 
 	console.log(input);
 	// this will show that the input is being recieved in the console
@@ -29,9 +61,16 @@ function App() {
 		// As a result, the previous messages that were inputed, will not be erased.
 
 		// all the logic to send messages
-		setMessages([...messages, input]);
-		// store all the previous inputs in the messages array
-		// add new inputs to the end of the messages array
+		setMessages([
+			...messages,
+			// store all the previous inputs in the messages array
+			{
+				username: username,
+				// add new usernames to the end of the messages array
+				text: input
+				// add new inputs to the end of the messages array
+			}
+		]);
 		setInput("");
 		// after send message is clicked,
 		// clear the messages from the input,
@@ -78,11 +117,15 @@ function App() {
 
 			{messages.map((message) => (
 				// loop through the messages array and
-				<Message text={message} />
-				// Take the text, and pass it through (or merge it with)
-				// the 'Message; component that's in the Message.js file
-
-				// display each message in the messages array
+				<Message
+					username={message.username}
+					// display the username
+					text={message.text}
+					// display the text
+					// Take the text, and pass it through (or merge it with)
+					// the 'Message; component that's in the Message.js file
+					// display each message in the messages array
+				/>
 			))}
 		</div>
 	);
