@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Message from "./Message.js";
+import "./App.css";
+
+// material ui imports
 import { Button } from "@material-ui/core";
 import { FormControl, InputLabel, Input } from "@material-ui/core";
-import Message from "./Message.js";
-
-import "./App.css";
 
 function App() {
 	//
