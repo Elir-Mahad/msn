@@ -5,6 +5,7 @@ import "./App.css";
 // material ui imports
 import { Button } from "@material-ui/core";
 import { FormControl, InputLabel, Input } from "@material-ui/core";
+import { db } from "./firebase.js";
 
 function App() {
 	//
@@ -16,17 +17,32 @@ function App() {
 	const [username, setUsername] = useState("");
 	const [messages, setMessages] = useState([
 		// hard coded messages
-		{
-			username: "sam",
-			text: "hello world"
-		},
-		{
-			username: "sandy",
-			text: "hello underworld"
-		}
+		// {
+		// 	username: "sam",
+		// 	message: "hello world"
+		// },
+		// {
+		// 	username: "sandy",
+		// 	message: "hello underworld"
+		// }
 	]);
 
 	//! UseEffect
+
+	useEffect(() => {
+		// run once when the app component loads
+		db
+			//
+			.collection("messages")
+			//
+			.onSnapshot((snapshot) => {
+				//
+				setMessages(snapshot.docs.map((doc) => doc.data()));
+			});
+		return () => {
+			// cleanup
+		};
+	}, []);
 
 	useEffect(() => {
 		//
@@ -68,7 +84,7 @@ function App() {
 			{
 				username: username,
 				// add new usernames to the end of the messages array
-				text: input
+				message: input
 				// add new inputs to the end of the messages array
 			}
 		]);
