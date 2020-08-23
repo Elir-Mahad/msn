@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Button } from "@material-ui/core";
+
 import "./App.css";
 
 function App() {
@@ -47,14 +49,25 @@ function App() {
 					onChange={(event) => setInput(event.target.value)}
 				/>
 				{/* button */}
-				<button type="submit" onClick={sendMessage}>
+				{/* button is from material ui */}
+				<Button
+					disabled={!input}
+					// If nothing is typed in the input field, then disable the button.
+					// So if i press enter, or press the button, without typing anything then the form won't respond.
+					// This ensures that empty strings (from pressing enter without typing) won't be pushed into the messages array
+					variant="contained"
+					color="primary"
+					type="submit"
+					onClick={sendMessage}
+				>
 					send messages
-				</button>
+				</Button>
 			</form>
 			{/* messages themselves */}
-			{/* adding submit="type" and wrapping the input and button in a form tag, 
-      allows us to send a message, by pressing the enter after we finish typing
-      in the input field. */}
+			{/* To be able to send messages by pressing enter after we finish typing, we have to:
+      [a] add submit="type" to the button 
+      [b] wrap the input and button in a form tag
+      [c] add event.preventdefault line to stop form from refreshing */}
 
 			{messages.map((message) => (
 				// loop through the messages array and
