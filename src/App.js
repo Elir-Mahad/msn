@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import { FormControl, InputLabel, Input } from "@material-ui/core";
+import Message from "./Message.js";
 
 import "./App.css";
 
@@ -47,7 +48,7 @@ function App() {
 			<form>
 				<FormControl>
 					<InputLabel>Enter a message</InputLabel>
-					{/* input */}
+					{/* input is from material ui */}
 					<Input
 						value={input}
 						onChange={(event) => setInput(event.target.value)}
@@ -77,7 +78,10 @@ function App() {
 
 			{messages.map((message) => (
 				// loop through the messages array and
-				<p>{message}</p>
+				<Message text={message} />
+				// Take the text, and pass it through (or merge it with)
+				// the 'Message; component that's in the Message.js file
+
 				// display each message in the messages array
 			))}
 		</div>
