@@ -131,21 +131,6 @@ function App() {
 					>
 						<SendIcon />
 					</IconButton>
-					{/* button is from material ui */}
-					{/* <Button
-						disabled={!input}
-						// If nothing is typed in the input field, then disable the button.
-						// So if i press enter, or press the button, without typing anything then the form won't respond.
-						// This ensures that empty strings (from pressing enter without typing) won't be pushed into the messages array
-						variant="contained"
-						// from material ui
-						color="primary"
-						// from material ui
-						type="submit"
-						onClick={sendMessage}
-					>
-						send messages
-					</Button> */}
 				</FormControl>
 			</form>
 			{/* messages themselves */}
