@@ -3,8 +3,10 @@ import Message from "./Message.js";
 import "./App.css";
 
 // material ui imports
-import { Button } from "@material-ui/core";
+// import { Button } from "@material-ui/core";
 import { FormControl, InputLabel, Input } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
+import SendIcon from "@material-ui/icons/Send";
 
 // firebase imports
 import { db } from "./firebase.js";
@@ -100,10 +102,14 @@ function App() {
 
 	return (
 		<div className="App">
-			<h1> Hello world </h1>
+			<img
+				src="https://facebookbrand.com/wp-content/uploads/2018/09/header-e1538151782912.png?w=too&h=100"
+				alt=""
+			/>
+			<h1> Fb Messenger </h1>
 
 			{/* input field */}
-			<form>
+			<form className="app_form">
 				<FormControl>
 					<InputLabel>Enter a message</InputLabel>
 					{/* input is from material ui */}
@@ -111,8 +117,22 @@ function App() {
 						value={input}
 						onChange={(event) => setInput(event.target.value)}
 					/>
+					<IconButton
+						disabled={!input}
+						// If nothing is typed in the input field, then disable the button.
+						// So if i press enter, or press the button, without typing anything then the form won't respond.
+						// This ensures that empty strings (from pressing enter without typing) won't be pushed into the messages array
+						variant="contained"
+						// from material ui
+						color="primary"
+						// from material ui
+						type="submit"
+						onClick={sendMessage}
+					>
+						<SendIcon />
+					</IconButton>
 					{/* button is from material ui */}
-					<Button
+					{/* <Button
 						disabled={!input}
 						// If nothing is typed in the input field, then disable the button.
 						// So if i press enter, or press the button, without typing anything then the form won't respond.
@@ -125,7 +145,7 @@ function App() {
 						onClick={sendMessage}
 					>
 						send messages
-					</Button>
+					</Button> */}
 				</FormControl>
 			</form>
 			{/* messages themselves */}
@@ -145,6 +165,7 @@ function App() {
 					// loop through the messages array and
 					<Message
 						key={id}
+						//
 						username={username}
 						// display the username
 						message={message}
