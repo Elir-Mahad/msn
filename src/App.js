@@ -110,14 +110,16 @@ function App() {
 
 			{/* input field */}
 			<form className="app_form">
-				<FormControl>
+				<FormControl className="app_formControl">
 					{/* input is from material ui */}
 					<Input
+						className="app_input"
 						placeholder="Enter a message"
 						value={input}
 						onChange={(event) => setInput(event.target.value)}
 					/>
 					<IconButton
+						className="app_iconButton"
 						disabled={!input}
 						// If nothing is typed in the input field, then disable the button.
 						// So if i press enter, or press the button, without typing anything then the form won't respond.
@@ -135,9 +137,9 @@ function App() {
 			</form>
 			{/* messages themselves */}
 			{/* To be able to send messages by pressing enter after we finish typing, we have to:
-      [a] add submit="type" to the button 
-      [b] wrap the input and button in a form tag
-      [c] add event.preventdefault line to stop form from refreshing */}
+			[a] add submit="type" to the button 
+			[b] wrap the input and button in a form tag
+			[c] add event.preventdefault line to stop form from refreshing */}
 
 			<FlipMove>
 				{/* Here we are wrapping the messages with flipmove. 

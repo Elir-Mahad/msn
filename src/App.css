@@ -7,8 +7,25 @@
 	position: fixed;
 	bottom: 0;
 	z-index: 1;
-	/* display: flex; */
-	width: 100%;
 	background-color: #e9e9eb;
 	margin: 20px;
+	width: 90%;
+}
+
+.app_formControl {
+	/* 	The form control element, which has this class, is imported from material ui.
+		Material ui has its own default styles and
+		these styles always override any custom css.
+		To stop material ui styles from overriding our custom css
+		we are going to add !important to each of the lines below  */
+	display: flex !important;
+	flex-direction: row !important;
+}
+
+.app_input {
+	flex: 1;
+}
+
+.app_iconButton {
+	flex: 0;
 }
