@@ -5,8 +5,13 @@ import "./App.css";
 // material ui imports
 import { Button } from "@material-ui/core";
 import { FormControl, InputLabel, Input } from "@material-ui/core";
+
+// firebase imports
 import { db } from "./firebase.js";
 import firebase from "firebase"; // pulling from the module not the file
+
+// animation import from flipmove
+import FlipMove from "react-flip-move";
 
 function App() {
 	//
@@ -26,9 +31,19 @@ function App() {
 			//
 			.collection("messages")
 			//
+			.orderBy("timestamp", "desc")
+			//
 			.onSnapshot((snapshot) => {
 				//
-				setMessages(snapshot.docs.map((doc) => doc.data()));
+				setMessages(
+					snapshot.docs.map((doc) => ({
+						//
+						id: doc.id,
+						//
+						message: doc.data()
+						//
+					}))
+				);
 			});
 		return () => {
 			// cleanup
@@ -119,18 +134,27 @@ function App() {
       [b] wrap the input and button in a form tag
       [c] add event.preventdefault line to stop form from refreshing */}
 
-			{messages.map((message) => (
-				// loop through the messages array and
-				<Message
-					username={username}
-					// display the username
-					message={message}
-					// display the text
-					// Take the text, and pass it through (or merge it with)
-					// the 'Message; component that's in the Message.js file
-					// display each message in the messages array
-				/>
-			))}
+			<FlipMove>
+				{/* Here we are wrapping the messages with flipmove. 
+            Flipmovie will ensure that the messages will behave smoothly on the page.
+            So when a message is pushed down, because a new message has been submitted,
+            the message will be pushed down in a smooth manner.
+            And when a new message is submitted, 
+            the message will appear on the page in a smooth manner.*/}
+				{messages.map(({ id, message }) => (
+					// loop through the messages array and
+					<Message
+						key={id}
+						username={username}
+						// display the username
+						message={message}
+						// display the text
+						// Take the text, and pass it through (or merge it with)
+						// the 'Message; component that's in the Message.js file
+						// display each message in the messages array
+					/>
+				))}
+			</FlipMove>
 		</div>
 	);
 }
