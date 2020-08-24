@@ -34,14 +34,21 @@ const Message = forwardRef(({ message, username }, ref) => {
                     otherwise they get the guest_Card class */}
 				<CardContent>
 					<Typography color="white" variant="h5" component="h2">
-						{!isUser && `${message.username}: `}
-						{/* If its not the user, then show the username. 
-							If it is the user, don't show the username.
-							This means that the user, when he is logged in, 
-							won't see his name next to his message,
-							because his messages will always be on the right.
-							But he will see the names of other users, next to their messages,
-							because all previous messages, of all different users, will be on the left.*/}
+						{!isUser && `${message.username || "Unknown User"}: `}
+
+						{/* -- !isUser && `${message.username -- means:
+							If its not the user, then show the username. 
+								Therefore: If it is the user, don't show the username.
+								This means that the user, when he is logged in, 
+								won't see his name next to his message,
+								because his messages will always be on the right.
+								But he will see the names of other users, next to their messages,
+								because all previous messages, of all different users, will be on the left.*/}
+
+						{/* -- || 'Unknown User'-- means:
+								If there is not username, insert 'unknown user' as the username.
+							*/}
+
 						{message.message}
 					</Typography>
 				</CardContent>
