@@ -4,7 +4,7 @@ import "./App.css";
 
 // material ui imports
 // import { Button } from "@material-ui/core";
-import { FormControl, InputLabel, Input } from "@material-ui/core";
+import { FormControl, Input } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 
@@ -111,9 +111,9 @@ function App() {
 			{/* input field */}
 			<form className="app_form">
 				<FormControl>
-					<InputLabel>Enter a message</InputLabel>
 					{/* input is from material ui */}
 					<Input
+						placeholder="Enter a message"
 						value={input}
 						onChange={(event) => setInput(event.target.value)}
 					/>
