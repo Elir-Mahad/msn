@@ -11,6 +11,8 @@ import "./Message.css";
 // material ui imports
 import { Card, CardContent, Typography } from "@material-ui/core";
 
+// ! --------------------END OF IMPORTS
+
 // function Message({ message, username }) {
 const Message = forwardRef(({ message, username }, ref) => {
 	// Forward ref is an example of a higher order function.

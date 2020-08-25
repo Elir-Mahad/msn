@@ -15,42 +15,65 @@ import firebase from "firebase"; // pulling from the module not the file
 // animation import from flipmove
 import FlipMove from "react-flip-move";
 
+//! -----------------------------------------------END OF IMPORTS
+
 function App() {
-	//
-	//! UseState
+	//! ALL USESTATE BELOW
 	// state allows you to make a change on the page without refreshing the whole page
 	// via the react dom
 
 	const [input, setInput] = useState("");
-	const [username, setUsername] = useState("");
-	const [messages, setMessages] = useState([]);
+	// (input) The constant input contains a string
+	// (setInput) And we declare that we will mainpulate this string
+	// By wrapping the string in a UseState()
 
-	//! UseEffect
+	const [username, setUsername] = useState("");
+	// (username) The constant username contains a string
+	// (setUsername) And we declare that we will mainpulate this string
+	// By wrapping the string in a UseState()
+
+	const [messages, setMessages] = useState([]);
+	// (messages) The constant messages contains a string
+	// (setMessages) And we declare that we will mainpulate this string
+	// By wrapping the string in a UseState()
+
+	//! ----------FIRST USE EFFECT BELOW - UseEffect runs a piece of code based on a specific condition
+	//! ----------This useEffect retrieves uploaded messages from the database
 
 	useEffect(() => {
 		// run once when the app component loads
 		db
-			//
+			// [a] enter the firebase database
 			.collection("messages")
-			//
+			//[b] get the messages inside firebase
 			.orderBy("timestamp", "desc")
-			//
+			// [c] order the posts based on timestamp in descending order (top post = most recent post)
 			.onSnapshot((snapshot) => {
-				//
+				// Use onsnapshot
+				// Onsnapshot is a really powerful listener
+				// every single time the data base changes in that collection,
+				// every single time a document gets added, modified, changed inside a post,
+				// a camera is going to take a snapshot of exactly what that data collection looks like
 				setMessages(
 					snapshot.docs.map((doc) => ({
-						//
+						// from that snapshot, get all documents, map through every single document((snapshot.docs.map((doc))
 						id: doc.id,
-						//
+						// get the documents id  (in firebase database, the id is the number under the add document tab)
 						message: doc.data()
-						//
+						// get the document data (doc.data) --> data includes each docs properties and values (username, message, etc )
 					}))
 				);
 			});
 		return () => {
-			// cleanup
+			// if there are any clean up actions insert them here
 		};
+		// the below line means: whenever the page refreshs, and the conditional is satisfied,
+		// run this code only once when the app component loads, and don't run it again.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	//! -----------SECOND USE EFFECT BELOW - UseEffect runs a piece of code based on a specific condition
+	// ! -----------This useEffect gets the username from the user
 
 	useEffect(() => {
 		//
@@ -70,6 +93,8 @@ function App() {
 		// then the code will in the useEffect will only run once
 	}, []);
 
+	//! BELOW IS THE FUNCTION FOR STORING/MANAGING INPUTED MESSAGES, AND SENDING THESE MESSAGES TO THE FIREBASE DATABASE
+
 	console.log(input);
 	// this will show that the input is being recieved in the console
 
@@ -80,25 +105,32 @@ function App() {
 	// [c] when the send message button is pressed, the input field is cleared and made blank
 
 	const sendMessage = (event) => {
+		// this function will be able to submit user message to the database to that specific post
+
 		event.preventDefault();
 		// By default, the input field gets refreshed every time something is submitted
 		// This line of code stops the input field from refereshing.
 		// As a result, the previous messages that were inputed, will not be erased.
 
-		db.collection("messages").add({
-			message: input,
-			username: username,
-			timestamp: firebase.firestore.FieldValue.serverTimestamp()
-		});
+		db
+			// [a] enter the database
+			.collection("messages")
+			// [b] access the collection called messages
+			.add({
+				// add to the message
+				message: input,
+				// the message that was inputed
+				username: username,
+				// the username
+				timestamp: firebase.firestore.FieldValue.serverTimestamp()
+				// the time the message was inputed
+			});
 
-		// all the logic to send messages
 		setInput("");
 		// after send message is clicked,
 		// clear the messages from the input,
 		// and set the input field to be blank
 	};
-
-	//! USEFFECT
 
 	return (
 		<div className="App">
@@ -152,7 +184,12 @@ function App() {
 					// loop through the messages array and
 					<Message
 						key={id}
-						//
+						// Adding the id ensures that react only refreshes new messages
+						// For example: if you have 99 messages, and you add a new message,
+						// then all 100 will not get refreshed when the page reloads.
+						// Instead, react (via the virtual dom) is going to:
+						// [a] keep the old messages on the page (without refreshing them)
+						// [b] add the new message to the page
 						username={username}
 						// display the username
 						message={message}
